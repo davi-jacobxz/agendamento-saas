@@ -19,7 +19,7 @@ const schema = z.object({
 
 const MIN_NOTICE: [number, string][] = [[0, "Sem antecedência"], [30, "30 minutos"], [60, "1 hora"], [120, "2 horas"], [240, "4 horas"], [720, "12 horas"], [1440, "1 dia"], [2880, "2 dias"]];
 const MAX_ADV: [number, string][] = [[7, "1 semana"], [14, "2 semanas"], [30, "1 mês"], [60, "2 meses"], [90, "3 meses"], [180, "6 meses"], [365, "1 ano"]];
-const SLOTS = [5, 10, 15, 20, 30, 60];
+const SLOTS = [5, 10, 15, 20, 30, 45, 60, 75, 90, 100];
 
 function opcoes<T extends number>(lista: [T, string][], atual: T): [T, string][] {
   return lista.some(([v]) => v === atual) ? lista : [...lista, [atual, `${atual} (valor atual)`]].sort((a, b) => (a[0] as number) - (b[0] as number)) as [T, string][];
@@ -130,7 +130,7 @@ export function Negocio({ dados, recarregar }: Props) {
         <h2 className="text-lg font-bold">Regras de marcação</h2>
         <div><label htmlFor="n-am" className="label">Antecedência mínima</label><select id="n-am" className="field" value={antMin} onChange={(e) => setAntMin(Number(e.target.value))}>{opcoes(MIN_NOTICE, antMin).map(([v, t]) => <option key={v} value={v}>{t}</option>)}</select><p className="hint">Quanto tempo antes a cliente tem de marcar.</p></div>
         <div><label htmlFor="n-aM" className="label">Antecedência máxima</label><select id="n-aM" className="field" value={antMax} onChange={(e) => setAntMax(Number(e.target.value))}>{opcoes(MAX_ADV, antMax).map(([v, t]) => <option key={v} value={v}>{t}</option>)}</select><p className="hint">Até onde no futuro se pode marcar.</p></div>
-        <div><label htmlFor="n-ps" className="label">Intervalo entre horários</label><select id="n-ps" className="field" value={passo} onChange={(e) => setPasso(Number(e.target.value))}>{SLOTS.map((v) => <option key={v} value={v}>{v} minutos</option>)}</select><p className="hint">De quanto em quanto tempo aparecem horários livres.</p></div>
+        <div><label htmlFor="n-ps" className="label">Intervalo entre horários</label><select id="n-ps" className="field" value={passo} onChange={(e) => setPasso(Number(e.target.value))}>{SLOTS.map((v) => <option key={v} value={v}>{v >= 60 ? `${Math.floor(v / 60)} h${v % 60 ? ` ${v % 60} min` : ""}` : `${v} minutos`}</option>)}</select><p className="hint">De quanto em quanto tempo aparecem horários livres.</p></div>
         <p className="hint">O intervalo entre clientes define-se em cada serviço (separador “Serviços”). O horário de funcionamento define-se por profissional, no separador “Equipa”.</p>
       </section>
 
