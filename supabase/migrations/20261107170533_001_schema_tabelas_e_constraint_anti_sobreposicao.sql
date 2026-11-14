@@ -28,7 +28,7 @@ create table public.businesses (
   -- regras
   min_notice_minutes int not null default 60 check (min_notice_minutes between 0 and 10080),
   max_advance_days int not null default 60 check (max_advance_days between 1 and 365),
-  slot_interval_minutes int not null default 15 check (slot_interval_minutes in (5,10,15,20,30,60)),
+  slot_interval_minutes int not null default 15 check (slot_interval_minutes in (5,10,15,20,30,45,60,75,90,100)),
   buffer_minutes int not null default 0 check (buffer_minutes between 0 and 120)
 );
 alter table public.businesses enable row level security;
