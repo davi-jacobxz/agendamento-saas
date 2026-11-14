@@ -42,7 +42,7 @@ vista de suporte só de leitura (telefones mascarados) e registo de acessos.
 
 ## Base de dados (`supabase/`)
 - `migrations/` — 001 a 004 pela ordem (tabelas e constraint anti-sobreposição; RLS e guarda; funções; Storage).
-- `migrations/` também inclui a 005 (aviso por e-mail). **Contém o URL do projeto**: num projeto novo, ajuste-o.
+- `migrations/` também inclui a 005 (aviso por e-mail), a 010 (intervalo por serviço) e a 011 (opções maiores de intervalo entre horários). **Contém o URL do projeto**: num projeto novo, ajuste-o.
 - `functions/` — Edge Functions `admin-create-business`, `admin-delete-business` e `notify-booking` (usam a service role key, só no servidor).
 Num projeto novo: aplique as migrações por ordem (`supabase db push` ou colando no SQL Editor) e faça deploy das funções.
 
