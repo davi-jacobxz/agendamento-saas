@@ -36,7 +36,7 @@ vista de suporte só de leitura (telefones mascarados) e registo de acessos.
 - **Equipa**: profissionais (foto opcional, serviços, horário por dia com pausas = intervalos separados, e **“Definir rapidamente”**: início e fim aplicados de uma vez a segunda–sexta, segunda–sábado ou todos os dias). Nasce com 1 profissional.
 - **Bloqueios**: folgas, feriados, dias inteiros ou algumas horas, para o negócio todo ou um profissional. Avisa se já existirem marcações.
 - **Negócio**: nome, logótipo, capa, cor (com verificação de contraste), textos, morada, Instagram, WhatsApp,
-  rótulo do profissional, mensagem final, **mensagem pronta do WhatsApp** (com variáveis `{nome}` `{servico}` `{dia}` `{hora}` e pré-visualização) e regras (antecedência mínima/máxima e intervalo entre horários).
+  rótulo do profissional, mensagem final, **mensagem pronta do WhatsApp** (com variáveis `{nome}` `{servico}` `{dia}` `{hora}` e pré-visualização) e regras (antecedência mínima/máxima e intervalo entre horários: 5, 10, 15, 20, 30, 45, 60, 75, 90 ou 100 minutos).
 - **Conta**: alterar palavra-passe e apagar dados de uma cliente (anonimiza nome e telefone).
 - Aviso no topo quando o negócio está bloqueado ou com “pago até” vencido/vazio.
 
