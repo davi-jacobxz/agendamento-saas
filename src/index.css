@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { -webkit-text-size-adjust: 100%; }
+body { @apply bg-porcelain text-ink font-sans antialiased; }
+:focus-visible { outline: 3px solid var(--cor, #2F5D50); outline-offset: 2px; border-radius: 4px; }
+dialog::backdrop { background: rgba(20, 33, 31, 0.55); }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+.btn { @apply inline-flex min-h-[48px] items-center justify-center rounded-xl px-5 text-base font-semibold transition disabled:cursor-not-allowed disabled:opacity-50; }
+.btn-primary { @apply btn bg-moss text-white shadow-sm hover:bg-mossdark; }
+.btn-ghost { @apply btn border border-line bg-white text-ink hover:bg-porcelain; }
+.btn-danger { @apply btn bg-brick text-white shadow-sm hover:bg-[#8c3226]; }
+.btn-sm { @apply min-h-[44px] px-4 text-sm; }
+.field { @apply min-h-[48px] w-full rounded-xl border border-line bg-white px-3 text-base text-ink placeholder:text-mute/70; }
+.label { @apply mb-1 block text-sm font-semibold; }
+.hint { @apply mt-1 text-sm text-mute; }
+.err { @apply mt-1 text-sm font-medium text-brick; }
+
+/* Página pública: a cor principal do negócio chega pela variável --cor */
+.btn-cor { @apply btn text-white shadow-md; min-height: 54px; border-radius: 0.9rem; font-size: 1.0625rem; background-color: var(--cor, #2F5D50); }
+.btn-cor:hover:not(:disabled) { filter: brightness(0.93); }
+.btn-cor:active:not(:disabled) { transform: scale(0.985); }
+.opcao { @apply w-full rounded-2xl border border-line bg-white p-4 text-left shadow-sm transition; min-height: 56px; }
+.opcao:hover:not(:disabled) { border-color: var(--cor, #2F5D50); box-shadow: 0 6px 16px -8px rgba(20, 33, 31, 0.35); }
+.opcao:active:not(:disabled) { transform: scale(0.99); }
+.opcao[aria-pressed="true"] { border-color: var(--cor, #2F5D50); background-color: var(--cor, #2F5D50); color: #fff; }
+.opcao[aria-pressed="true"] * { color: #fff !important; }
+.chip { @apply inline-flex items-center gap-1 rounded-full bg-porcelain px-2.5 py-1 text-xs font-semibold text-mute; }
+.cartao { @apply rounded-3xl border border-line bg-paper p-5 shadow-sm sm:p-7; }
