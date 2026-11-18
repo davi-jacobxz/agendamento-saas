@@ -36,7 +36,7 @@ export default function CancelarMarcacao({ slug, id }: { slug: string; id: strin
     try {
       const resultado = await cancelarMinhaMarcacao(slug, id);
       if (resultado.ok) {
-        setMarcacao((atual) => atual ? { ...atual, status: "cancelado", pode_cancelar: false } : atual);
+        setMarcacao((atual) => atual?.encontrada ? { ...atual, status: "cancelado", pode_cancelar: false } : atual);
         return;
       }
       setMensagem(resultado.mensagem ?? "Não foi possível cancelar a marcação.");
@@ -76,7 +76,7 @@ export default function CancelarMarcacao({ slug, id }: { slug: string; id: strin
             <p className="text-mute">Não foi possível encontrar esta marcação. Confirme se está a utilizar o link recebido.</p>
           </div>
         )}
-        {estado === "carregada" && marcacao && (
+        {estado === "carregada" && marcacao?.encontrada && (
           <>
             <div className="mt-5 rounded-xl border border-line bg-white p-4">
               <p className="text-lg font-bold">{marcacao.servico}</p>
