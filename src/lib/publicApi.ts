@@ -55,15 +55,17 @@ export function urlImagemPublica(path: string | null): string | null {
 }
 
 
-export interface MinhaMarcacao {
-  encontrada: boolean;
-  status?: "confirmado" | "cancelado";
-  inicio?: string;
-  fim?: string;
-  servico?: string;
-  profissional?: string;
-  pode_cancelar?: boolean;
-}
+export type MinhaMarcacao =
+  | { encontrada: false }
+  | {
+      encontrada: true;
+      status: "confirmado" | "cancelado";
+      inicio: string;
+      fim: string;
+      servico: string;
+      profissional: string;
+      pode_cancelar: boolean;
+    };
 
 export interface ResultadoCancelamento {
   ok: boolean;
