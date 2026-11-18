@@ -28,6 +28,13 @@ Faça no **telemóvel** e no computador. Marque cada item.
 - [ ] Escolher serviço → (profissional) → dia → hora → nome e telemóvel → **Confirmar marcação**.
 - [ ] A caixinha de consentimento **não vem marcada**; o link “Política de privacidade” abre a política **com o nome e a morada do negócio**.
 - [ ] Aparece a tela “Marcação confirmada” com o “x” para fechar; o botão do WhatsApp abre a conversa com a mensagem pronta.
+- [ ] Depois de fechar a confirmação, aparece “Cancelar esta marcação” e “Copiar link”; copiar e abrir o link numa janela anónima.
+- [ ] No link privado, confirmar que aparecem apenas o serviço, a data, a hora e o profissional (nunca o telefone).
+- [ ] Cancelar uma marcação futura pela página pública; confirmar a operação e verificar a mensagem de sucesso.
+- [ ] Depois do cancelamento público, confirmar que o horário volta a ficar disponível e que o proprietário vê o estado “cancelado” na Agenda.
+- [ ] Abrir novamente o mesmo link: deve informar que a marcação já foi cancelada e não permitir um segundo cancelamento.
+- [ ] Tentar cancelar uma marcação passada e um UUID inexistente ou de outro negócio: a operação deve ser recusada sem revelar dados.
+- [ ] Confirmar que o link funciona mesmo quando a página pública do negócio está indisponível; o cliente ainda deve conseguir consultar/cancelar a marcação.
 - [ ] **Duplicados**: abrir a mesma página em **dois telemóveis**, escolher a mesma hora e confirmar quase ao mesmo tempo → só um consegue; o outro vê “Esse horário acabou de ser ocupado”.
 - [ ] Marcar no **mesmo dia, em horas diferentes** → ambos aceites.
 - [ ] **Serviços diferentes à mesma hora**: marcar um serviço às 09:00 e tentar outro serviço às 09:00 (e às 09:15, a meio do primeiro) → o segundo é sempre recusado e a página nem mostra esses horários.
