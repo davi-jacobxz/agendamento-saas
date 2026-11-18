@@ -53,3 +53,35 @@ export async function marcar(a: { slug: string; servico: string; profissional: s
 export function urlImagemPublica(path: string | null): string | null {
   return path ? pub.storage.from("business-assets").getPublicUrl(path).data.publicUrl : null;
 }
+
+
+export type MinhaMarcacao =
+  | { encontrada: false }
+  | {
+      encontrada: true;
+      status: "confirmado" | "cancelado";
+      inicio: string;
+      fim: string;
+      servico: string;
+      profissional: string;
+      pode_cancelar: boolean;
+    };
+
+export interface ResultadoCancelamento {
+  ok: boolean;
+  code?: string;
+  mensagem?: string;
+  status?: "cancelado";
+}
+
+export async function verMinhaMarcacao(slug: string, id: string): Promise<MinhaMarcacao> {
+  const { data, error } = await pub.rpc("get_my_appointment", { p_slug: slug, p_id: id });
+  if (error) falha(error);
+  return data as MinhaMarcacao;
+}
+
+export async function cancelarMinhaMarcacao(slug: string, id: string): Promise<ResultadoCancelamento> {
+  const { data, error } = await pub.rpc("cancel_my_appointment", { p_slug: slug, p_id: id });
+  if (error) falha(error);
+  return data as ResultadoCancelamento;
+}

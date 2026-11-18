@@ -260,16 +260,36 @@ export function ConfirmacaoModal({ r, negocio, mostrarProf, onFechar }: { r: Res
 }
 
 /** Faixa que fica no topo, depois de fechar o ecrã de confirmação. */
-export function BannerConfirmada({ r, onVer }: { r: ResultadoMarcacao; onVer: () => void }) {
+export function BannerConfirmada({ r, slug, onVer }: { r: ResultadoMarcacao; slug: string; onVer: () => void }) {
   const { m, quando } = detalhesDe(r);
+  const [copiado, setCopiado] = useState(false);
+  const linkCancelar = `/${slug}?cancelar=${encodeURIComponent(m.id)}`;
+
+  async function copiarLink() {
+    try {
+      await navigator.clipboard.writeText(new URL(linkCancelar, window.location.origin).toString());
+      setCopiado(true);
+    } catch {
+      setCopiado(false);
+    }
+  }
+
   return (
-    <div role="status" className="mb-5 flex items-center justify-between gap-3 rounded-xl border-2 bg-paper px-4 py-3" style={{ borderColor: "var(--cor)" }}>
-      <div className="min-w-0">
-        <p className="text-xs font-bold uppercase tracking-wide" style={{ color: "var(--cor)" }}>Marcação confirmada</p>
-        <p className="truncate text-sm font-semibold">{m.servico}</p>
-        <p className="truncate text-sm text-mute first-letter:uppercase">{quando}</p>
+    <div className="mb-5 rounded-xl border-2 bg-paper px-4 py-3" style={{ borderColor: "var(--cor)" }}>
+      <div className="flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-xs font-bold uppercase tracking-wide" style={{ color: "var(--cor)" }}>Marcação confirmada</p>
+          <p className="truncate text-sm font-semibold">{m.servico}</p>
+          <p className="truncate text-sm text-mute first-letter:uppercase">{quando}</p>
+        </div>
+        <button type="button" className="btn-ghost btn-sm shrink-0" onClick={onVer}>Ver detalhes</button>
       </div>
-      <button type="button" className="btn-ghost btn-sm shrink-0" onClick={onVer}>Ver detalhes</button>
+      <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-line pt-3">
+        <a href={linkCancelar} className="text-sm font-bold underline" style={{ color: "var(--cor)" }}>Cancelar esta marcação</a>
+        <button type="button" className="text-sm font-semibold text-mute underline" onClick={() => void copiarLink()}>
+          {copiado ? "Link copiado" : "Copiar link"}
+        </button>
+      </div>
     </div>
   );
 }

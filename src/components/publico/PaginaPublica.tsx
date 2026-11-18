@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { LIMITE, carregarNegocio, urlImagemPublica, type Carregado, type ResultadoMarcacao, type ServicoPublico } from "../../lib/publicApi";
 import { ligacaoInstagram } from "../../lib/rota";
+import CancelarMarcacao from "./CancelarMarcacao";
 import { ListaServicos, EscolhaProfissional, EscolhaDia, FormDados, ConfirmacaoModal, BannerConfirmada } from "./Passos";
 
 type Passo = "servico" | "prof" | "dia" | "dados";
@@ -20,12 +21,15 @@ export default function PaginaPublica({ slug }: { slug: string }) {
   const [aviso, setAviso] = useState<string | null>(null);
   const [chave, setChave] = useState(0);
   const titulo = useRef<HTMLHeadingElement>(null);
+  const cancelarId = new URLSearchParams(window.location.search).get("cancelar");
+  const idCancelarValido = cancelarId !== null && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(cancelarId);
 
   const carregar = () => { setErro(null); setC(null); carregarNegocio(slug).then(setC).catch((e: Error) => setErro(e.message === LIMITE ? "limite" : "geral")); };
-  useEffect(carregar, [slug]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!idCancelarValido) carregar(); }, [slug, idCancelarValido]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { titulo.current?.focus({ preventScroll: true }); }, [passo]);
   useEffect(() => { if (c && "negocio" in c) document.title = c.negocio.nome; }, [c]);
 
+  if (idCancelarValido && cancelarId) return <CancelarMarcacao slug={slug} id={cancelarId} />;
   if (erro) return <Centro><p className="text-lg font-semibold">{erro === "limite" ? "Demasiados pedidos seguidos. Aguarde um minuto e tente de novo." : "Não foi possível carregar a página."}</p><button type="button" className="btn-primary mt-4" onClick={carregar}>Tentar de novo</button></Centro>;
   if (!c) return <Centro><p className="text-mute">A carregar…</p></Centro>;
   if (!c.encontrado) return <Centro><h1 className="text-2xl font-bold">Página não encontrada</h1><p className="mt-2 text-mute">Verifique o endereço que recebeu.</p></Centro>;
@@ -78,7 +82,7 @@ export default function PaginaPublica({ slug }: { slug: string }) {
       </header>
 
       <main className="mx-auto max-w-lg px-4 pb-14 pt-5">
-        {resultado && passo === "servico" && <BannerConfirmada r={resultado} onVer={() => setModalAberto(true)} />}
+        {resultado && passo === "servico" && <BannerConfirmada r={resultado} slug={slug} onVer={() => setModalAberto(true)} />}
         <section className="cartao">
           <div className="flex gap-1.5" role="progressbar" aria-valuemin={1} aria-valuemax={total} aria-valuenow={numero} aria-label={`Passo ${numero} de ${total}`}>
             {Array.from({ length: total }, (_, i) => <span key={i} className="h-1.5 flex-1 rounded-full" style={{ backgroundColor: i < numero ? "var(--cor)" : "#D3D9D1" }} />)}
